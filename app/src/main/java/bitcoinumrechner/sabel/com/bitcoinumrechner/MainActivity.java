@@ -1,6 +1,7 @@
 package bitcoinumrechner.sabel.com.bitcoinumrechner;
 
 import android.app.Activity;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -120,15 +121,16 @@ public class MainActivity extends Activity {
         btn_kursAktualisieren.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO: Kurs abrufen
-                new Thread(new MeinKursThread()).start();
-                textView.setText(getString(R.string.tv_kurs) + " "+ faktorBitcoinKursInEuro);
-
+//                new Thread(new MeinKursThread()).start();
+//                textView.setText(getString(R.string.tv_kurs) + " "+ faktorBitcoinKursInEuro);
+                MyDownloadThread myDownloadThread = new MyDownloadThread();
+                myDownloadThread.execute();
 
             }
         });
 
         textView = findViewById(R.id.tv_kurs);
+        new MyDownloadThread().execute();
 
     }
 
@@ -191,4 +193,43 @@ public class MainActivity extends Activity {
             }
         }
     }
+
+    public class MyDownloadThread extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            textView.setText(getString(R.string.tv_kurs) + " " + faktorBitcoinKursInEuro);
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            URL url = null;
+            InputStream inputStream = null;
+            URLConnection urlConnection = null;
+            try {
+                url = new URL("https://bitaps.com/api/ticker/average");
+                urlConnection = url.openConnection();
+                inputStream = urlConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                String jsonZeile = null;
+                String zeile = null;
+
+                while ((jsonZeile = bufferedReader.readLine()) != null) {
+                    System.out.println(jsonZeile);
+                    zeile = jsonZeile;
+                }
+                JSONObject jsonObject = new JSONObject(zeile);
+                JSONObject fx_rates = jsonObject.getJSONObject("fx_rates");
+                faktorBitcoinKursInEuro = fx_rates.getDouble("eur");
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+
 }
