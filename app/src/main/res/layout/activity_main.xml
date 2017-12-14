@@ -1,54 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android='http://schemas.android.com/apk/res/android'
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="bitcoinumrechner.sabel.com.bitcoinumrechner.MainActivity">
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Bitcoint Umrechner"
-        android:textSize="30dp" />
+    android:orientation="vertical"
+    android:padding="15dp"
+    >
 
     <EditText
-        android:id="@+id/euro"
+        android:id="@+id/et_euro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp"
-        android:width="200dp"
-        android:gravity="center"
-        android:text="Euro eintragen" />
-
-    <EditText
-        android:id="@+id/bitcoin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="200dp"
-        android:width="200dp"
-        android:gravity="center"
-        android:text="Bitcoin eintragen" />
-
+        android:layout_gravity="center"
+        android:hint="@string/et_euro"
+        android:inputType="numberDecimal" />
 
     <Button
-        android:id="@+id/umrechnen"
+        android:id="@+id/btn_umrechnen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="300dp"
-        android:gravity="center"
-        android:text="Umrechnen" />
+        android:layout_gravity="center"
+        android:text="@string/btn_umrechnen" />
+
+    <EditText
+        android:id="@+id/et_bitcoin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:hint="@string/et_bitcoin"
+        android:inputType="numberDecimal" />
+    <Button
+        android:id="@+id/btn_KursAktualisieren"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/btn_kursAktualisieren"/>
 
     <TextView
-        android:layout_width="match_parent"
+        android:id="@+id/tv_kurs"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="400dp"
-        android:gravity="center"
-        android:text="by Schweiger"
-        android:textSize="30dp" />
+        android:layout_gravity="center"
+        android:text="@string/tv_kurs"/>
 
-</RelativeLayout>
+
+
+</LinearLayout>

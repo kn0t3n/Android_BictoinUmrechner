@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">BitcoinUmrechner</string>
-    <string name="Euro">Euro</string>
-    <string name="Bitcoin">Bitcoin</string>
+    <string name="et_euro">Euro eintragen</string>
+    <string name="et_bitcoin">Betrag in Bitcoin</string>
+    <string name="btn_umrechnen">Umrechnen</string>
+    <string name="btn_kursAktualisieren">Kurs Aktualisieren</string>
+    <string name="tv_kurs">aktueller Kurs: </string>
 </resources>
