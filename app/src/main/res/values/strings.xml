@@ -5,4 +5,5 @@
     <string name="btn_umrechnen">Umrechnen</string>
     <string name="btn_kursAktualisieren">Kurs Aktualisieren</string>
     <string name="tv_kurs">aktueller Kurs: </string>
+    <string name="bitcoinkurs">bitcoinkurs</string>
 </resources>

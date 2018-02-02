@@ -1,6 +1,8 @@
 package bitcoinumrechner.sabel.com.bitcoinumrechner;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
@@ -20,6 +22,8 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends Activity {
 
@@ -30,10 +34,27 @@ public class MainActivity extends Activity {
     private boolean bitcoinLock;
     private TextView textView;
 
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
+
+    // SharedPreferences zum Speichern und Laden von Schlüssel-Werte-Paaren
+    // Schlüssel --> Wert
+    // bitcoinkurs --> 11_111.75
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+//        Map<String, Double> map = new HashMap<>();
+//        map.put("bitcoinkurs", 11111.75);
+//        Double bitcoinkurs = map.get("bitcoinkurs");
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        sharedPreferences = MainActivity.this.getPreferences(Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+        faktorBitcoinKursInEuro = sharedPreferences.getFloat(String.valueOf(R.string.bitcoinkurs), 0);
+
+        System.out.println(faktorBitcoinKursInEuro);
         et_euro = findViewById(R.id.et_euro);
         et_bitcoin = findViewById(R.id.et_bitcoin);
         btn_umrechnen = findViewById(R.id.btn_umrechnen);
@@ -198,6 +219,9 @@ public class MainActivity extends Activity {
 
         @Override
         protected void onPostExecute(Void aVoid) {
+
+            editor.putFloat(String.valueOf(R.string.bitcoinkurs), (float) faktorBitcoinKursInEuro);
+            editor.apply();
             textView.setText(getString(R.string.tv_kurs) + " " + faktorBitcoinKursInEuro);
         }
 
